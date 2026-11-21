@@ -40,10 +40,20 @@ Depois de montar o resumo:
 3. Faça commit e push com a mensagem "Vagas de AAAA-MM-DD".
 
 ## Formato da resposta final (vira o email)
+Antes de escrever, abra cada vaga selecionada e leia a descrição completa (get_job_by_id no Gupy ou WebFetch na página oficial). Nada do relatório pode vir só do trecho do resultado de busca; o que a página não informar, escreva "não informado".
+
 Título: "Estágios para você, [data de hoje]"
-Depois, duas seções: "IA" e "Finanças + tecnologia". Em cada uma, até 8 vagas, ordenadas da mais aderente para a menos. Para cada vaga:
+Depois, duas seções: "IA" e "Finanças + tecnologia". Em cada uma, até 8 vagas, ordenadas da mais aderente para a menos. Para cada vaga, um bloco detalhado com:
 - **Empresa, cargo** (cidade/modelo de trabalho)
 - Link direto da vaga
-- Data de publicação ou prazo de inscrição, se houver
-- Uma linha dizendo por que combina com o currículo dele (ex.: "pede Python e modelagem, bate com o pipeline de ETL do Quant Capital")
-No fim, uma linha "Destaque do dia" com a vaga que você mais recomenda e por quê. Se não achar nada relevante e novo, diga isso em uma frase em vez de encher a lista. Seja conciso e direto.
+- Data de publicação e prazo de inscrição
+- **Sobre a área**: 1 a 2 frases sobre o time ou a empresa e o que eles fazem
+- **O que você faria**: as principais responsabilidades (3 a 5 itens)
+- **Requisitos**: obrigatórios e diferenciais, com cursos aceitos e janela de formatura; diga explicitamente se Economia e formatura em 12/2027 (ou até 12/2028) se encaixam
+- **Condições**: modelo de trabalho e dias presenciais, carga horária, bolsa e benefícios principais, se informados
+- **Processo seletivo**: etapas e testes, se informados
+- **Por que combina**: 2 a 3 frases ligando requisitos da vaga a experiências concretas do currículo (ex.: "pede Python para ETL, bate com o pipeline de ETL do Quant Capital")
+- **Pontos de atenção**: o que pode pesar contra (curso não listado, presencial, pouca tecnologia, vaga afirmativa, prazo curto, bolsa não informada)
+- **Aderência**: nota de 1 a 5
+
+No fim, "Destaque do dia" com 2 a 3 frases sobre a vaga que você mais recomenda, por quê, e uma dica concreta para a candidatura. Se não achar nada relevante e novo, diga isso em uma frase em vez de encher a lista. Seja objetivo em cada item, sem enrolação.
