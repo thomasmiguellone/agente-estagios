@@ -1,46 +1,59 @@
-# Agente de busca de estágios
+# Internship search agent
 
-Agente de IA que procura vagas de estágio em **IA** e em **finanças + tecnologia** em São Paulo (e remoto/híbrido no Brasil), filtra pelo meu perfil e me manda um resumo por email três vezes por semana.
+An AI agent that looks for internships at top companies that combine **technology, AI and finance** in São Paulo (or remote/hybrid in Brazil), filters them against my profile, and emails me a detailed summary three times a week.
 
-Feito por Thomas Martins (Economia, FGV EESP · Vice Presidente da FGV Quant).
+Built by Thomas Martins (Economics, FGV EESP · Vice President of FGV Quant).
 
-## Como funciona
+## Focus
+
+The main criterion is the **quality and profile of the company**, not just the job title. Two groups:
+
+1. **AI-heavy fintechs and startups**: companies solving real problems with AI and data. My reference companies are **Brex, QI Tech and Enter**; others in the same spirit include CloudWalk (InfinitePay), Pismo, Dock, Cora, Creditas, Asaas, Clara, Conta Simples, Belvo, Celcoin, Neon, Nuvemshop and iFood.
+2. **Large companies that combine tech and finance**: Nubank, Mercado Pago/Mercado Livre, Stone, PicPay, Inter, C6 Bank, XP, BTG Pactual, Itaú, B3 and similar, always in technology, data, AI, product or engineering roles.
+
+Target roles: AI, machine learning, data science, LLMs, AI automation, AI product/ops, software engineering, product, data and analytics for financial products, and credit modeling.
+
+Filtered out: "pure" quant finance (quant or investment managers, trading desks, fund research, securitization), companies with no tech or finance profile, roles that are not internships, roles outside Brazil that require relocation, and administrative, sales or HR roles. Fewer, better matches beat a long list.
+
+## How it works
 
 ```
-Agendamento (seg, qua, sex às 17h43, horário de Brasília)
+Schedule (Mon, Wed, Fri at 5:43 pm, Brasília time)
         │
         ▼
-Agente Claude (tarefa agendada, roda na nuvem)
+Claude agent (scheduled task, runs in the cloud)
         │
-        ├── Gupy (connector MCP): busca por termos como "IA", "dados", "machine learning", "quant", "fintech"
-        ├── Plataformas de vagas de startups: Ashby, Greenhouse, Lever, Sólides, InHire
-        ├── Páginas de carreira: Nubank, Itaú, BTG, XP, C6, QI Tech, Kinea, iFood, Blip e outras
-        └── Notícias de programas de estágio recém abertos (só para descobrir; o link final é sempre o oficial)
+        ├── Gupy (MCP connector): searches for AI, data, ML, data science, fintech, product and software engineering internships
+        ├── Startup and tech job boards: Ashby, Greenhouse, Lever, Sólides, InHire, Recrutei
+        ├── Career pages of target companies (Brex, QI Tech and Enter are checked on every run)
+        └── News about newly opened internship programs (discovery only; the final link is always the official one)
         │
         ▼
-Filtro e ranking pelo perfil (Python, modelagem quantitativa, IA, finanças)
+Filtering and ranking by company quality and fit with my profile
         │
-        ├── Consulta vagas/historico.csv para não repetir vagas já enviadas
-        ├── Atualiza vagas/historico.csv com as vagas novas
+        ├── Reads vagas/historico.csv so jobs already sent are not repeated
+        ├── Appends the new jobs to vagas/historico.csv
         ▼
-Resumo por email e notificação no celular
+Detailed email summary (in Portuguese) and a phone notification
 ```
 
-## Decisões de projeto
+Each job in the email gets a full breakdown: about the team, responsibilities, requirements (including whether an Economics degree and my graduation date fit), conditions, selection process, why it matches my résumé, red flags, and a 1 to 5 fit score, plus a "pick of the day".
 
-- **Sem LinkedIn**: o LinkedIn bloqueia leitura automática (robots.txt). O agente procura a mesma vaga no Gupy ou na página de carreira da empresa.
-- **Nunca inventar**: só entram vagas que o agente realmente abriu, com link e data verificados. Sem data visível, a vaga é marcada como "data não informada".
-- **Só vagas novas**: prioridade para vagas publicadas nos últimos 3 a 4 dias, e o histórico em `vagas/historico.csv` evita repetir o que já foi enviado.
-- **Sem servidor e sem chave de API**: roda como tarefa agendada do Claude, sem infraestrutura própria.
+## Design decisions
 
-## Estrutura
+- **No LinkedIn**: LinkedIn blocks automated reading (robots.txt), so the agent looks for the same job on Gupy or the company's career page instead.
+- **Never make things up**: only jobs the agent actually opened make it in, with verified links and dates. Anything a page doesn't state is reported as "não informado" (not stated).
+- **New jobs only**: priority goes to jobs posted in the last 3 to 4 days, and the history in `vagas/historico.csv` prevents resending.
+- **No server and no API key**: runs as a scheduled Claude task, with no infrastructure of its own.
 
-| Caminho | O que é |
+## Structure
+
+| Path | What it is |
 |---|---|
-| `instrucoes/prompt.md` | Instruções completas do agente (perfil, fontes, regras e formato do email) |
-| `vagas/historico.csv` | Todas as vagas já enviadas, usado para não repetir |
-| `vagas/AAAA-MM-DD.md` | Resumo enviado em cada execução |
+| `instructions/prompt.md` | Full agent instructions (profile, sources, rules and email format) |
+| `vagas/historico.csv` | Every job already sent, used to avoid repeats |
+| `vagas/YYYY-MM-DD.md` | The summary sent on each run (in Portuguese) |
 
-## Exemplo de saída
+## Sample output
 
-Veja os arquivos em [`vagas/`](vagas/).
+See the files in [`vagas/`](vagas/).
